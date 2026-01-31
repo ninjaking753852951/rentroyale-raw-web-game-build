@@ -1,0 +1,28 @@
+name: Build and Deploy to itch.io
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    name: Build + Itch.io Upload
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      # Your Unity build steps go here
+      # Example: use game-ci/unity-build actions
+      # and publish artifacts into something like ./build/web
+
+      - name: Upload to itch.io
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{ secrets.BUTLER_API_KEY }}
+          itchUsername: ninjaking1212
+          itchGameId: landgrab-royale
+          buildChannel: webgl
+          gameData: ./   # if index.html is in the repo root
+
